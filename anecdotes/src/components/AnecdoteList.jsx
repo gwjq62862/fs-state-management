@@ -16,20 +16,20 @@ const AnecdoteList = () => {
         fetchData()
     }, [initialize])
     return (
-     <div>
-    {sortedAnecdotes.map((anecdote) => (
-        <div key={anecdote.id}>
-            <div>{anecdote.content}</div>
-            <div>
-                has {anecdote.votes}
-                <button onClick={() => vote(anecdote.id)}>vote</button>
-            </div>
-            <div>
-               {anecdote.votes ===0 ? ( <button onClick={() => deleteNote(anecdote.id)}>delete</button>):null}
-            </div>
+        <div>
+            {sortedAnecdotes.map((anecdote) => (
+                <div key={anecdote.id}>
+                    <div>{anecdote.content}</div>
+                    <div>
+                        has {anecdote.votes}
+                        <button data-testid={`vote-btn-${anecdote.id}`} onClick={() => vote(anecdote.id)}>vote</button>
+                    </div>
+                    <div>
+                        {anecdote.votes === 0 ? (<button onClick={() => deleteNote(anecdote.id)}>delete</button>) : null}
+                    </div>
+                </div>
+            ))}
         </div>
-    ))}
-</div>
     )
 }
 

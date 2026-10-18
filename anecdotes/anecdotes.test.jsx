@@ -21,6 +21,11 @@ import Filter from './src/components/Filter';
 describe('anecdote testing', () => {
     beforeEach(() => {
         vi.clearAllMocks()
+        useAnecdoteStore.setState({
+            anecdotes: [],
+            filter: 'all',
+            noti: ''
+        })
     })
     test('a test that verifies the state is initialized with the anecdotes returned by the backend', async () => {
         const testAnecdotes = [
@@ -56,7 +61,7 @@ describe('anecdote testing', () => {
 
             ancdoteService.getAll.mockResolvedValue(unsortedAnecdotes)
             render(<AnecdoteList />)
-            //since we use useEffecct this one wiat for that one 
+            //since we use useEffect this one wiat for that one 
             await waitFor(() => {
                 expect(screen.getByText('Anecdote with highest votes')).toBeDefined()
             })
@@ -89,6 +94,33 @@ describe('anecdote testing', () => {
             await userEvent.type(filterInput, 'Node')
 
             expect(screen.queryByText('Learning React is fun')).toBeNull()
+        }),
+        test('a test that verifies that voting increases the number of votes for an anecdote.', async () => {
+            const testAnecdotes = [
+                { id: '1', content: 'Learning React is fun', votes: 2 },
+                { id: '2', content: 'Writing backend code in Node.js', votes: 0 },
+            ]
+            ancdoteService.getAll.mockResolvedValue(testAnecdotes)
+            ancdoteService.update.mockResolvedValue({
+                id: '1',
+                content: 'Learning React is fun',
+                votes: 3
+            })
+            render(
+                <AnecdoteList />
+            )
+            await waitFor(async () => {
+                expect(screen.getByText('Learning React is fun')).toBeDefined()
+            })
+            const specificButton = screen.getByTestId(`vote-btn-${testAnecdotes[0].id}`)
+
+            await userEvent.click(specificButton)
+
+            await waitFor(() => {
+                expect(screen.getByText('has 3')).toBeDefined()
+            })
+
+
         })
 
 })

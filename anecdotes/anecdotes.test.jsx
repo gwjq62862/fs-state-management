@@ -16,6 +16,8 @@ import ancdoteService from './src/services/ancdote'
 import { useAnecdoteStore } from './src/store';
 import { act, renderHook } from '@testing-library/react';
 import AnecdoteList from './src/components/AnecdoteList';
+import userEvent from '@testing-library/user-event';
+import Filter from './src/components/Filter';
 describe('anecdote testing', () => {
     beforeEach(() => {
         vi.clearAllMocks()
@@ -64,5 +66,29 @@ describe('anecdote testing', () => {
             expect(anecdoteDivs[0].textContent).toContain('Anecdote with highest votes')
             expect(anecdoteDivs[1].textContent).toContain('Anecdote with medium votes')
             expect(anecdoteDivs[2].textContent).toContain('Anecdote with low votes')
+        }),
+        test('a test that verifies the correct React component receives a properly filtered list of anecdotes.', async () => {
+            const testAnecdotes = [
+                { id: '1', content: 'Learning React is fun', votes: 2 },
+                { id: '2', content: 'Writing backend code in Node.js', votes: 5 },
+            ]
+
+            ancdoteService.getAll.mockResolvedValue(testAnecdotes)
+
+            render(
+                <div>
+                    <Filter />
+                    <AnecdoteList />
+                </div>
+            )
+            await waitFor(async () => {
+                expect(screen.getByText('Learning React is fun')).toBeDefined()
+            })
+
+            const filterInput = screen.getByTestId('filter')
+            await userEvent.type(filterInput, 'Node')
+
+            expect(screen.queryByText('Learning React is fun')).toBeNull()
         })
+
 })

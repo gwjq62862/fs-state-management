@@ -2,7 +2,7 @@
 import { expect, test, beforeEach, describe, vi } from 'vitest'
 import { render, screen, waitFor } from '@testing-library/react'
 
-vi.mock('./src/services/ancdote', () => ({
+vi.mock('./services/ancdote', () => ({
     default: {
         getAll: vi.fn(),
         create: vi.fn(),
@@ -12,12 +12,12 @@ vi.mock('./src/services/ancdote', () => ({
 }))
 
 
-import ancdoteService from './src/services/ancdote'
-import { useAnecdoteStore } from './src/store';
+import ancdoteService from './services/ancdote'
+import { useAnecdoteStore } from './store';
 import { act, renderHook } from '@testing-library/react';
-import AnecdoteList from './src/components/AnecdoteList';
+import AnecdoteList from './components/AnecdoteList';
 import userEvent from '@testing-library/user-event';
-import Filter from './src/components/Filter';
+import Filter from './components/Filter';
 describe('anecdote testing', () => {
     beforeEach(() => {
         vi.clearAllMocks()

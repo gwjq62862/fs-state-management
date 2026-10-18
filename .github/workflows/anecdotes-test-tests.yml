@@ -18,6 +18,10 @@ jobs:
         working-directory: anecdotes
         run: npm ci
 
+      - name: Install test dependencies
+        working-directory: anecdotes-tests
+        run: npm ci
+
       - name: Verify test files exist
         working-directory: anecdotes-tests
         run: node verify-tests-exist.mjs

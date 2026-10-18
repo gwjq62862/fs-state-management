@@ -3,7 +3,7 @@ import { create } from 'zustand'
 
 
 import ancdoteService from '../src/services/ancdote'
-const useAnecdoteStore = create((set, get) => ({
+export const useAnecdoteStore = create((set, get) => ({
   anecdotes: [],
   filter: 'all',
   noti: '',

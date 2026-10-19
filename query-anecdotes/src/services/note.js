@@ -25,6 +25,10 @@ async function createNote(data) {
         method: "POST",
        body: JSON.stringify(data)
     })
+    if(!res.ok) {
+        const err=await res.json()
+        throw new Error(err.error)
+    }
     return res.json()
 }
 

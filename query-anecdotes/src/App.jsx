@@ -1,11 +1,14 @@
 import AnecdoteForm from './components/AnecdoteForm'
 import Notification from './components/Notification'
 import { useNote } from './hook/useNote'
+import { useNoti } from './hook/useNoti'
 
 const App = () => {
+    const { setNotificationMessage } = useNoti()
   const {data:anecdotes,error,isLoading, voteAnecdote}=useNote()
   const handleVote = (anecdote) => {
      voteAnecdote(anecdote)
+     setNotificationMessage('you have voted sucessfully')
   }
 
   

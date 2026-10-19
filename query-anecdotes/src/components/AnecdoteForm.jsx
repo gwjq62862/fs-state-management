@@ -1,13 +1,24 @@
 import { useNote } from "../hook/useNote"
+import { useNoti } from "../hook/useNoti"
 
 const AnecdoteForm = () => {
-  const { createAnecdote}=useNote()
+  const { createAnecdote } = useNote()
+  const { setNotificationMessage } = useNoti()
   const onCreate = (event) => {
     event.preventDefault()
     const content = event.target.anecdote.value
-     createAnecdote(content)
-    event.target.reset()
-    
+
+
+    createAnecdote(content, {
+      onSuccess: () => {
+        setNotificationMessage(`you created '${content}'`)
+        event.target.reset()
+      },
+      onError: (error) => {
+        setNotificationMessage(error.message)
+        console.log("Error happened:", error)
+      }
+    })
   }
 
   return (

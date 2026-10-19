@@ -3,7 +3,7 @@
     {
       "id": "225494e3-df29-4d1d-b63e-9b4fa33797a2",
       "content": "Make it work, then make it fast",
-      "votes": 0
+      "votes": 1
     },
     {
       "id": "35e8bd6d-a206-426d-bfe0-4ef2af680717",
@@ -24,6 +24,11 @@
       "id": "fb80370d-7c7c-43e5-a967-1fca483b1850",
       "content": "Real artists ship code",
       "votes": 7
+    },
+    {
+      "content": "learning can be diffcult while you're doing make sure there is a gilrfreind behind you",
+      "votes": 0,
+      "id": "d0c5d3c1-8c28-4566-90d9-aebf502921eb"
     }
   ]
 }

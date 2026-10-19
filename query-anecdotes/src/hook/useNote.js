@@ -32,7 +32,7 @@ export const useNote = () => {
         isLoading: query.isLoading,
         isError: query.isError,
         error: query.error,
-        createAnecdote: (content) => createMutation.mutate({ content, votes: 0 }),
+        createAnecdote: (content,options) => createMutation.mutate({ content, votes: 0 },options),
         voteAnecdote: (anecdote) => updateMutation.mutate({
             ...anecdote,
             votes: anecdote.votes + 1
